@@ -19,7 +19,10 @@ class CLIApp {
         )
 
         val application = Application(repository, owner, token)
-        println(application.analise())
+        application.analise().forEach{
+            println("- File ${it.key}")
+            println("  ${it.value.joinToString("; ")}")
+        }
     }
 
     private fun getDataFromUser(queryText: String, queryRepeatText: String): String {
