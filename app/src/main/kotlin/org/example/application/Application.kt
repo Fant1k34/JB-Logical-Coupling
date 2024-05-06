@@ -33,7 +33,7 @@ class Application(private val repositoryName: String, private val ownerName: Str
             val filename = it.key
 
             val contributors = it.value.toList()
-                .sortedBy { (key, value) -> value }
+                .sortedBy { (_, value) -> -value }
                 .take(2)
                 .map {
                     "Contributor ${it.first.name}, ${it.first.email}"
