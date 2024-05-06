@@ -1,6 +1,6 @@
-package presentation
+package org.jetbrains.git.analysis.presentation
 
-import org.example.application.Application
+import org.jetbrains.git.analysis.application.ApplicationConfiguration
 
 class CLIApp {
     fun run() {
@@ -18,10 +18,15 @@ class CLIApp {
             "Please, provide your GitHub token:"
         )
 
-        val application = Application(repository, owner, token)
-        application.analise().forEach{
-            println("- File ${it.key}")
-            println("  ${it.value.joinToString("; ")}")
+        val application = ApplicationConfiguration(repository, owner, token)
+        try {
+            application.execute().forEach {
+                println("- File ${it.key}")
+                println("  ${it.value.joinToString("; ")}")
+            }
+        } catch (e: Throwable) {
+            println("Unfortunately, error occurred. Please, read it's message below")
+            println(e.message)
         }
     }
 
