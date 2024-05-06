@@ -1,19 +1,28 @@
-package application
+package org.example.application
 
-import domain.objects.Contributor
-import domain.servicies.CommitService
+import org.example.domain.objects.Contributor
+import org.example.domain.servicies.CommitService
 
-class Application(private val repositoryName: String, private val ownerName: String, private val token: String) {
+
+class Application(repositoryName: String, ownerName: String, token: String) {
+    private val service = CommitService(repositoryName, ownerName, token)
+
+    private fun chooseContributorPair(contributorMap: MutableMap<Contributor, Int>): List<String> =
+        contributorMap.toList()
+            .sortedBy { (_, value) -> -value }
+            .take(2)
+            .map {
+                "Contributor ${it.first.name}, ${it.first.email}"
+            }
+
     fun analise(): Map<String, List<String>> {
-        val service = CommitService(repositoryName, ownerName, token)
-
         val fileStatistics = mutableMapOf<String, MutableMap<Contributor, Int>>()
 
         service.getListCommitHash().map {
             service.getCommitByCommitHash(it)
         }.map { commit ->
             commit.files.forEach { file ->
-                if (fileStatistics.get(file.filename) == null) {
+                if (fileStatistics[file.filename] == null) {
                     fileStatistics[file.filename] = mutableMapOf()
                 }
 
@@ -27,21 +36,11 @@ class Application(private val repositoryName: String, private val ownerName: Str
             }
         }
 
-        val bestFileContributors = mutableMapOf<String, List<String>>()
-
-        fileStatistics.forEach {
+        return fileStatistics.map {
             val filename = it.key
+            val contributors = it.value
 
-            val contributors = it.value.toList()
-                .sortedBy { (_, value) -> -value }
-                .take(2)
-                .map {
-                    "Contributor ${it.first.name}, ${it.first.email}"
-                }
-
-            bestFileContributors[filename] = contributors
-        }
-
-        return bestFileContributors
+            filename to chooseContributorPair(contributors)
+        }.toMap()
     }
 }

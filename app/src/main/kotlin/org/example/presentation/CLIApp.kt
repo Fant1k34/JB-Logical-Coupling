@@ -1,6 +1,6 @@
 package presentation
 
-import application.Application
+import org.example.application.Application
 
 class CLIApp {
     fun run() {

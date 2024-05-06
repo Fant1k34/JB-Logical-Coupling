@@ -1,6 +1,6 @@
 import presentation.CLIApp
 
-fun main(args: Array<String>) {
+fun main() {
     val cliApp = CLIApp()
     cliApp.run()
 }
