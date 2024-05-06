@@ -47,4 +47,8 @@ Start Console Application:
 
 ## Screenshots
 
+![image](https://github.com/Fant1k34/JB-Logical-Coupling/assets/45245696/aff48a4d-d372-42c4-bd03-786c2c0f0ad6)
 
+![image](https://github.com/Fant1k34/JB-Logical-Coupling/assets/45245696/06b52ea7-5488-4b02-977e-84efce35aaa4)
+
+![image](https://github.com/Fant1k34/JB-Logical-Coupling/assets/45245696/dcfb727f-1b4c-4e6c-8223-9cd55760fbe2)
